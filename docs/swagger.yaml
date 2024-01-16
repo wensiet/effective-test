@@ -1,0 +1,152 @@
+basePath: /api/v1
+definitions:
+  schemas.CreatePerson:
+    properties:
+      name:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+  schemas.ResponsePerson:
+    properties:
+      ID:
+        type: integer
+      age:
+        type: integer
+      gender:
+        type: string
+      name:
+        type: string
+      nation:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+  schemas.UpdatePerson:
+    properties:
+      age:
+        type: integer
+      country_code:
+        type: string
+      gender:
+        type: string
+      name:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: Test for effective company.
+  title: Effective-test
+  version: "1.0"
+paths:
+  /person:
+    post:
+      consumes:
+      - application/json
+      description: Allows to create person and predict several characteristics
+      parameters:
+      - description: Person's data
+        in: body
+        name: person
+        required: true
+        schema:
+          $ref: '#/definitions/schemas.CreatePerson'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemas.ResponsePerson'
+      summary: Create new person
+      tags:
+      - Persons
+  /person/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Allows to delete person using person's ID
+      parameters:
+      - description: Person's ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete person
+      tags:
+      - Persons
+    get:
+      consumes:
+      - application/json
+      description: Allows to get person using person's ID
+      parameters:
+      - description: Person's ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get one person
+      tags:
+      - Persons
+    put:
+      consumes:
+      - application/json
+      description: Allows to update person using person's ID and update data
+      parameters:
+      - description: Person's ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update data
+        in: body
+        name: person
+        required: true
+        schema:
+          $ref: '#/definitions/schemas.UpdatePerson'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Update person
+      tags:
+      - Persons
+  /person/page:
+    get:
+      consumes:
+      - application/json
+      description: Allows to get 10 person using paging, each page has 10 elements
+      parameters:
+      - description: Page number
+        in: query
+        name: num
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get 10 person
+      tags:
+      - Persons
+swagger: "2.0"
